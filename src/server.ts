@@ -10,6 +10,9 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 8000;
 
+// UNTUK PRODUCTION -> COMMENT Jika local development
+initializeDatabase();
+
 const corsOptions = {
   origin: "http://localhost:3000",
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"], // Add OPTIONS
@@ -23,7 +26,11 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", apiRoutes);
+// UNTUK LOCAL DEV
+//app.use("/api", apiRoutes);
+
+// UNTUK PRODUCTION
+app.use("/", apiRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("SIMRS Backend is running...");
@@ -31,11 +38,15 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(errorHandler);
 
-const startServer = async () => {
-  await initializeDatabase();
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-};
+// UNTUK LOCAL DEVELOPMENT -> UNCOMMENT JIKA INGIN DIRUNNING DI LOCAL
+// const startServer = async () => {
+//   await initializeDatabase();
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+//   });
+// };
 
-startServer();
+// startServer();
+
+// UNTUK PRODUCTION -> UNCOMMENT JIKA INGIN DIRUNING DI PRODUCTION
+export default app;
