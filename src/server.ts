@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8000;
 initializeDatabase();
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://simrs.solidtechno.com/"],
+  origin: ["http://localhost:3000", "https://simrs.solidtechno.com"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"], // Add OPTIONS
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: false, // Set to true if you need cookies
